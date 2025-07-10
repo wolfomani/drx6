@@ -1,247 +1,205 @@
 "use client"
 
 import { useState } from "react"
-import { ApiKeyVerification } from "@/components/api-key-verification"
-import { ConnectionTest } from "@/components/connection-test"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { APIKeyVerification } from "@/components/api-key-verification"
+import { APIHealthStatus } from "@/components/api-health-status"
 import { EnhancedDiscussionV3 } from "@/components/enhanced-discussion-v3"
 import { AdvancedTools } from "@/components/advanced-tools"
+import { ModelTesting } from "@/components/model-testing"
 import { TrainingTab } from "@/components/training-tab"
 import { DataTab } from "@/components/data-tab"
-import { EnvStatus } from "@/components/env-status"
-import { APIHealthStatus } from "@/components/api-health-status"
+import { QualityEvaluator } from "@/components/quality-evaluator"
+import { SettingsTab } from "@/components/settings-tab"
 import { UnifiedDashboard } from "@/components/unified-dashboard"
-import { UnifiedNavbar } from "@/components/unified-navbar"
 import { AppLauncher } from "@/components/app-launcher"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Brain, MessageSquare, Zap, Key, TestTube, Database, TrendingUp, Settings, BarChart3, Activity, Network, User, ExternalLink } from 'lucide-react'
+import { Brain, Sparkles, Users, Heart, User, FileText, ExternalLink, Github, Globe } from 'lucide-react'
+import Link from "next/link"
 
 export default function Home() {
   const [showUnifiedDashboard, setShowUnifiedDashboard] = useState(false)
 
-  const handleNavigation = (section: string) => {
-    if (section === "dashboard") {
-      setShowUnifiedDashboard(true)
-    } else {
-      setShowUnifiedDashboard(false)
-    }
-  }
-
-  // Show Unified Dashboard if requested
   if (showUnifiedDashboard) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <UnifiedNavbar currentApp="مركز التطبيقات الموحد" onNavigate={handleNavigation} />
-        <UnifiedDashboard />
-        <AppLauncher />
-      </div>
-    )
+    return <UnifiedDashboard onBack={() => setShowUnifiedDashboard(false)} />
   }
 
-  // Original AI Platform Content
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header with Apps Center Button */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-xl">
-              <Brain className="w-8 h-8 text-white" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      {/* Header with Personal Welcome */}
+      <div className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Personal Introduction */}
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <img
+                  src="/profile-photo.jpg"
+                  alt="عبدالعزيز الحمداني"
+                  className="w-16 h-16 rounded-full object-cover border-3 border-blue-500/30"
+                />
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-slate-800"></div>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white">👋 أهلاً بك، أنا عبدالعزيز الحمداني</h1>
+                <p className="text-slate-300">مطور تطبيقات وواجهات أمامية | مطور ذكاء اصطناعي شغوف</p>
+              </div>
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              منصة الذكاء الاصطناعي المتقدمة
-            </h1>
-          </div>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-4">
-            منصة شاملة للتفاعل مع نماذج الذكاء الاصطناعي المتعددة مع أدوات متقدمة للمناقشة والتحليل
-          </p>
 
-          {/* Navigation Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button
-              onClick={() => setShowUnifiedDashboard(true)}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Network className="w-5 h-5 mr-2" />
-              مركز التطبيقات الموحد
-            </Button>
-
-            <Button
-              variant="outline"
-              className="border-gray-600 text-gray-300 hover:bg-gray-700 gap-2 bg-transparent"
-              onClick={() => window.open("/cv", "_blank")}
-            >
-              <User className="w-4 h-4" />
-              السيرة الذاتية
-            </Button>
-
-            <Button
-              variant="outline"
-              className="border-gray-600 text-gray-300 hover:bg-gray-700 gap-2 bg-transparent"
-              onClick={() => window.open("https://github.com/wolfomani/drx6", "_blank")}
-            >
-              <ExternalLink className="w-4 h-4" />
-              GitHub
-            </Button>
-          </div>
-        </div>
-
-        {/* Main Tabs */}
-        <Tabs defaultValue="verification" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 md:grid-cols-9 bg-gray-800 border-gray-700">
-            <TabsTrigger
-              value="verification"
-              className="flex items-center gap-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
-            >
-              <Key className="w-4 h-4" />
-              <span className="hidden sm:inline">المفاتيح</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="health"
-              className="flex items-center gap-2 data-[state=active]:bg-green-600 data-[state=active]:text-white"
-            >
-              <Activity className="w-4 h-4" />
-              <span className="hidden sm:inline">الصحة</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="discussion"
-              className="flex items-center gap-2 data-[state=active]:bg-green-600 data-[state=active]:text-white"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span className="hidden sm:inline">المناقشة</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="tools"
-              className="flex items-center gap-2 data-[state=active]:bg-purple-600 data-[state=active]:text-white"
-            >
-              <Zap className="w-4 h-4" />
-              <span className="hidden sm:inline">الأدوات</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="testing"
-              className="flex items-center gap-2 data-[state=active]:bg-orange-600 data-[state=active]:text-white"
-            >
-              <TestTube className="w-4 h-4" />
-              <span className="hidden sm:inline">الاختبار</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="training"
-              className="flex items-center gap-2 data-[state=active]:bg-purple-600 data-[state=active]:text-white"
-            >
-              <Brain className="w-4 h-4" />
-              <span className="hidden sm:inline">التدريب</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="data"
-              className="flex items-center gap-2 data-[state=active]:bg-green-600 data-[state=active]:text-white"
-            >
-              <Database className="w-4 h-4" />
-              <span className="hidden sm:inline">البيانات</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="quality"
-              className="flex items-center gap-2 data-[state=active]:bg-yellow-600 data-[state=active]:text-white"
-            >
-              <TrendingUp className="w-4 h-4" />
-              <span className="hidden sm:inline">الجودة</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="advanced"
-              className="flex items-center gap-2 data-[state=active]:bg-red-600 data-[state=active]:text-white"
-            >
-              <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">متقدم</span>
-            </TabsTrigger>
-          </TabsList>
-
-          {/* API Key Verification Tab */}
-          <TabsContent value="verification" className="mt-6">
-            <div className="space-y-6">
-              <ApiKeyVerification />
-              <EnvStatus />
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <Link href="/cv">
+                <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white">
+                  <User className="w-4 h-4 mr-2" />
+                  السيرة الذاتية
+                </Button>
+              </Link>
+              <Button
+                onClick={() => setShowUnifiedDashboard(true)}
+                className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-500 hover:to-teal-500 text-white"
+              >
+                <Brain className="w-4 h-4 mr-2" />
+                مركز التطبيقات الموحد
+              </Button>
             </div>
-          </TabsContent>
-
-          {/* API Health Status Tab */}
-          <TabsContent value="health" className="mt-6">
-            <APIHealthStatus />
-          </TabsContent>
-
-          {/* AI Discussion Tab */}
-          <TabsContent value="discussion" className="mt-6">
-            <EnhancedDiscussionV3 />
-          </TabsContent>
-
-          {/* Advanced Tools Tab */}
-          <TabsContent value="tools" className="mt-6">
-            <AdvancedTools />
-          </TabsContent>
-
-          {/* Connection Testing Tab */}
-          <TabsContent value="testing" className="mt-6">
-            <ConnectionTest />
-          </TabsContent>
-
-          {/* Training Tab */}
-          <TabsContent value="training" className="mt-6">
-            <TrainingTab />
-          </TabsContent>
-
-          {/* Data Management Tab */}
-          <TabsContent value="data" className="mt-6">
-            <DataTab />
-          </TabsContent>
-
-          {/* Quality Tab */}
-          <TabsContent value="quality" className="mt-6">
-            <Card className="bg-gradient-to-br from-yellow-900/20 to-orange-900/20 border-yellow-500/30">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-white">
-                  <TrendingUp className="w-6 h-6 text-yellow-400" />
-                  تقييم الجودة
-                </CardTitle>
-                <CardDescription className="text-gray-400">تحليل وتقييم جودة النماذج والاستجابات</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12">
-                  <BarChart3 className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">قريباً</h3>
-                  <p className="text-gray-400">سيتم إضافة أدوات تقييم الجودة قريباً</p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Advanced Tab */}
-          <TabsContent value="advanced" className="mt-6">
-            <Card className="bg-gradient-to-br from-red-900/20 to-pink-900/20 border-red-500/30">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-white">
-                  <Settings className="w-6 h-6 text-red-400" />
-                  الإعدادات المتقدمة
-                </CardTitle>
-                <CardDescription className="text-gray-400">إعدادات النظام والتكوين المتقدم</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12">
-                  <Settings className="w-16 h-16 text-red-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">قريباً</h3>
-                  <p className="text-gray-400">سيتم إضافة الإعدادات المتقدمة قريباً</p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-        {/* Footer */}
-        <div className="mt-12 text-center text-gray-500 text-sm">
-          <p>منصة الذكاء الاصطناعي المتقدمة - مدعومة بـ GROQ, Together AI, و Gemini</p>
-          <p className="mt-1">جميع الخدمات تعمل بشكل صحيح ✅</p>
+          </div>
         </div>
       </div>
 
-      {/* App Launcher - Always Available */}
+      {/* Personal Values Cards */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <Card className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border-purple-500/30">
+            <CardContent className="p-6 text-center">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-6 h-6 text-purple-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">الشغف بالتكنولوجيا</h3>
+              <p className="text-slate-300 text-sm">
+                أعيش كل لحظة مع شغف تكنولوجيا الذكاء الاصطناعي والتطوير المستمر
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-green-500/10 to-teal-500/10 border-green-500/30">
+            <CardContent className="p-6 text-center">
+              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-6 h-6 text-green-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">التعاون والمشاركة</h3>
+              <p className="text-slate-300 text-sm">
+                أؤمن بأن التواصل والانفتاح مع الآخرين هما مفتاح النجاح
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border-orange-500/30">
+            <CardContent className="p-6 text-center">
+              <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Heart className="w-6 h-6 text-orange-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">التطبيق العملي</h3>
+              <p className="text-slate-300 text-sm">
+                أؤمن بضرورة تطبيق ما تعلمته في مشاريع عملية لتحسين حياة الناس
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Platform */}
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-3 text-white">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-lg">
+                  <Brain className="w-6 h-6" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">منصة الذكاء الاصطناعي المتقدمة</h2>
+                  <p className="text-sm text-gray-300 mt-1">
+                    منصة شاملة للتفاعل مع نماذج الذكاء الاصطناعي المتعددة مع أدوات متقدمة للمناقشة والتحليل
+                  </p>
+                </div>
+              </CardTitle>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  onClick={() => window.open("https://drx6.vercel.app", "_blank")}
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  المشروع المباشر
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  onClick={() => window.open("https://github.com/wolfomani/drx6", "_blank")}
+                >
+                  <Github className="w-4 h-4 mr-2" />
+                  الكود المصدري
+                </Button>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="verification" className="w-full" dir="rtl">
+              <TabsList className="grid w-full grid-cols-4 lg:grid-cols-9 bg-slate-700/50">
+                <TabsTrigger value="verification" className="text-xs">تحقق</TabsTrigger>
+                <TabsTrigger value="health" className="text-xs">صحة</TabsTrigger>
+                <TabsTrigger value="discussion" className="text-xs">مناقشة</TabsTrigger>
+                <TabsTrigger value="tools" className="text-xs">أدوات</TabsTrigger>
+                <TabsTrigger value="testing" className="text-xs">اختبار</TabsTrigger>
+                <TabsTrigger value="training" className="text-xs">تدريب</TabsTrigger>
+                <TabsTrigger value="data" className="text-xs">بيانات</TabsTrigger>
+                <TabsTrigger value="quality" className="text-xs">جودة</TabsTrigger>
+                <TabsTrigger value="settings" className="text-xs">متقدم</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="verification" className="mt-6">
+                <APIKeyVerification />
+              </TabsContent>
+
+              <TabsContent value="health" className="mt-6">
+                <APIHealthStatus />
+              </TabsContent>
+
+              <TabsContent value="discussion" className="mt-6">
+                <EnhancedDiscussionV3 />
+              </TabsContent>
+
+              <TabsContent value="tools" className="mt-6">
+                <AdvancedTools />
+              </TabsContent>
+
+              <TabsContent value="testing" className="mt-6">
+                <ModelTesting />
+              </TabsContent>
+
+              <TabsContent value="training" className="mt-6">
+                <TrainingTab />
+              </TabsContent>
+
+              <TabsContent value="data" className="mt-6">
+                <DataTab />
+              </TabsContent>
+
+              <TabsContent value="quality" className="mt-6">
+                <QualityEvaluator />
+              </TabsContent>
+
+              <TabsContent value="settings" className="mt-6">
+                <SettingsTab />
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Floating App Launcher */}
       <AppLauncher />
     </div>
   )

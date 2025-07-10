@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle, XCircle, Loader2, Key, AlertTriangle, Clock, RefreshCw } from "lucide-react"
+import { CheckCircle, XCircle, Loader2, Key, AlertTriangle, Clock, RefreshCw } from 'lucide-react'
 
 interface ApiKeyStatus {
   service: string
@@ -15,7 +15,7 @@ interface ApiKeyStatus {
   retryAfter?: number
 }
 
-export function ApiKeyVerification() {
+export function APIKeyVerification() {
   const [keyStatuses, setKeyStatuses] = useState<ApiKeyStatus[]>([
     { service: "GROQ", status: "idle", message: "لم يتم الفحص بعد" },
     { service: "TOGETHER", status: "idle", message: "لم يتم الفحص بعد" },
@@ -383,3 +383,6 @@ export function ApiKeyVerification() {
     </Card>
   )
 }
+
+// Also export as default for backward compatibility
+export default APIKeyVerification

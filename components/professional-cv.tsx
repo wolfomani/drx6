@@ -21,6 +21,9 @@ import {
   Award,
   ExternalLink,
   Download,
+  Heart,
+  Lightbulb,
+  Target,
 } from "lucide-react"
 
 export default function ProfessionalCV() {
@@ -59,12 +62,35 @@ export default function ProfessionalCV() {
   ]
 
   const achievements = [
-    "تطوير منصة ذكاء اصطناعي متكاملة بواجهة عربية",
+    "تطوير منصة ذكاء اصطناعي متكاملة بواجهة عربية احترافية",
     "تكامل ناجح مع 5+ نماذج ذكاء اصطناعي مختلفة",
-    "تصميم قاعدة بيانات معقدة مع 15+ جدول",
-    "تطوير نظام محادثة متقدم مع دعم الملفات",
-    "إنشاء واجهة مستخدم متجاوبة ومتقدمة",
-    "تطبيق أفضل الممارسات في الأمان والأداء",
+    "تصميم قاعدة بيانات معقدة مع 15+ جدول مترابط",
+    "تطوير نظام محادثة متقدم مع دعم الملفات والمرفقات",
+    "إنشاء واجهة مستخدم متجاوبة ومتقدمة مع دعم RTL",
+    "تطبيق أفضل الممارسات في الأمان والأداء والتحسين",
+  ]
+
+  const personalValues = [
+    {
+      icon: <Heart className="w-5 h-5" />,
+      title: "الشغف بالتكنولوجيا",
+      description: "أعيش كل لحظة مع شغف تكنولوجيا الذكاء الاصطناعي",
+    },
+    {
+      icon: <Lightbulb className="w-5 h-5" />,
+      title: "التعلم المستمر",
+      description: "حماسي يدفعني دوماً للتعلم والتوسع في معرفتي",
+    },
+    {
+      icon: <Users className="w-5 h-5" />,
+      title: "التعاون والمشاركة",
+      description: "أؤمن بأن التواصل والانفتاح مع الآخرين هما مفتاح النجاح",
+    },
+    {
+      icon: <Target className="w-5 h-5" />,
+      title: "التطبيق العملي",
+      description: "أؤمن بضرورة تطبيق ما تعلمته في مشاريع عملية",
+    },
   ]
 
   return (
@@ -77,7 +103,7 @@ export default function ProfessionalCV() {
               <div className="relative">
                 <img
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/profile-photo.jpg-MrMB1D1L6o5mHYTPq5qyDfVBkNVXRb.jpeg"
-                  alt="أحمد علي درويش"
+                  alt="عبدالعزيز الحمداني"
                   className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
                 />
                 <div className="absolute -bottom-2 -right-2 bg-green-500 w-8 h-8 rounded-full border-2 border-white flex items-center justify-center">
@@ -86,11 +112,11 @@ export default function ProfessionalCV() {
               </div>
 
               <div className="text-center md:text-right flex-1">
-                <h1 className="text-4xl font-bold mb-2">أحمد علي درويش</h1>
-                <h2 className="text-xl mb-4 opacity-90">مطور تطبيقات الذكاء الاصطناعي | Full-Stack Developer</h2>
-                <p className="text-lg opacity-80 max-w-2xl">
-                  مطور متخصص في تطبيقات الذكاء الاصطناعي مع خبرة في تطوير المنصات المتقدمة والتكامل مع نماذج الذكاء
-                  الاصطناعي المتعددة
+                <h1 className="text-4xl font-bold mb-2">عبدالعزيز الحمداني</h1>
+                <h2 className="text-xl mb-4 opacity-90">مطور تطبيقات وواجهات أمامية | مطور ذكاء اصطناعي شغوف</h2>
+                <p className="text-lg opacity-80 max-w-2xl leading-relaxed">
+                  👋 أهلاً بك. اسمي عبد العزيز، وأنا مطور شغوف أعيش كل لحظة مع شغف تكنولوجيا الذكاء الاصطناعي. 🚀 على
+                  الرغم من أن رحلتي في هذا المجال قد بدأت حديثاً، إلا أن حماسي يدفعني دوماً للتعلم والتوسع في معرفتي.
                 </p>
 
                 <div className="flex flex-wrap justify-center md:justify-end gap-4 mt-6">
@@ -126,7 +152,7 @@ export default function ProfessionalCV() {
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm">ahmed@drx6.dev</span>
+                  <span className="text-sm">abdulaziz@drx6.dev</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Github className="w-4 h-4 text-gray-800" />
@@ -138,8 +164,29 @@ export default function ProfessionalCV() {
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="w-4 h-4 text-red-600" />
-                  <span className="text-sm">الشرق الأوسط</span>
+                  <span className="text-sm">المملكة العربية السعودية</span>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Personal Values */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Heart className="w-5 h-5" />
+                  القيم والمبادئ
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {personalValues.map((value, index) => (
+                  <div key={index} className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+                    <div className="text-blue-600 mt-1">{value.icon}</div>
+                    <div>
+                      <h4 className="font-semibold text-sm mb-1">{value.title}</h4>
+                      <p className="text-xs text-gray-600">{value.description}</p>
+                    </div>
+                  </div>
+                ))}
               </CardContent>
             </Card>
 
@@ -194,21 +241,60 @@ export default function ProfessionalCV() {
 
           {/* Right Column */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Professional Summary */}
+            {/* Professional Journey */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Brain className="w-5 h-5" />
-                  الملخص المهني
+                  رحلتي في عالم البرمجة والذكاء الاصطناعي
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700 leading-relaxed">
-                  مطور تطبيقات ذكاء اصطناعي متخصص مع خبرة عملية في تطوير منصات متقدمة تدعم التكامل مع نماذج الذكاء
-                  الاصطناعي المتعددة. أتمتع بخبرة واسعة في تطوير التطبيقات الحديثة باستخدام Next.js وTypeScript، مع
-                  التركيز على تطوير واجهات المستخدم المتقدمة والتكامل مع APIs الذكاء الاصطناعي. لدي خبرة خاصة في تطوير
-                  التطبيقات التي تدعم اللغة العربية مع تصميم RTL متقدم.
-                </p>
+                <div className="prose prose-gray max-w-none">
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    🌟 عندما قررت استكشاف هذا العالم الرائع، كنت مدركاً أن الطريق لن يكون دائماً ممهداً. تكنولوجيا الذكاء
+                    الاصطناعي تتطور بشكل متسارع، مما يتطلب مني متابعة أحدث الابتكارات بلا توقف.
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    🔍 لقد قضيت الأشهر الماضية في استكشاف أساسيات الذكاء الاصطناعي، واكتشفت العديد من التعقيدات التي
+                    تجعل هذا المجال مدهشاً حقاً. أؤمن أيضاً بضرورة تطبيق ما تعلمته في مشاريع عملية، للسعي نحو تحسين حياة
+                    الناس والمجتمعات.
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    💪 صحيح أن التحديات قد تكون مخيفة أحياناً، لكنني أدرك أن التغلب عليها يسهم في نموي وتطوري الشخصي.
+                    أؤمن بأن التواصل والانفتاح مع الآخرين هما مفتاح النجاح.
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed">
+                    🤝 لكل واحد منا تجاربه ورؤاه الفريدة، التي يمكن أن تحمل تأثيراً إيجابياً على الآخرين. 🌈 نحن نعيش في
+                    زمن مليء بالتحديات والفرص، حيث يمكن للتعاون أن يعزز نجاحنا.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Vision & Goals */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="w-5 h-5" />
+                  الرؤية والأهداف
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="prose prose-gray max-w-none">
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    🌱 لنعمل معاً على إنشاء بيئة تعليمية مستندة إلى قوة الجماعة. كل خطوة نخطوها معاً تقترب بنا من أهدافنا
+                    وطموحاتنا في هذا المجال الرائع.
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed">
+                    ✨ دعونا نساهم في خلق مستقبل مشرق قائم على الابتكار والإبداع، لنحقق جميعاً أحلامنا. أنا متشوق
+                    للاستفادة من آرائكم ونصائحكم القيمة! 🙏
+                  </p>
+                </div>
               </CardContent>
             </Card>
 
