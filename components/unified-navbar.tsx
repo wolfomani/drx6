@@ -19,7 +19,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Brain, Monitor, User, Globe, Server, Menu, ExternalLink, Github, Home, Settings, Network } from "lucide-react"
+import {
+  Brain,
+  Monitor,
+  User,
+  Globe,
+  Server,
+  Menu,
+  ExternalLink,
+  Github,
+  Settings,
+  Network,
+  ArrowLeft,
+} from "lucide-react"
 
 const navigationItems = [
   {
@@ -72,6 +84,13 @@ const navigationItems = [
         icon: <Network className="w-4 h-4" />,
         external: false,
       },
+      {
+        title: "العودة للمنصة الأصلية",
+        description: "منصة الذكاء الاصطناعي المتقدمة",
+        href: "#main",
+        icon: <Brain className="w-4 h-4" />,
+        external: false,
+      },
     ],
   },
 ]
@@ -83,6 +102,20 @@ interface UnifiedNavbarProps {
 
 export function UnifiedNavbar({ currentApp, onNavigate }: UnifiedNavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const handleNavigation = (href: string, external: boolean) => {
+    if (external) {
+      window.open(href, "_blank")
+    } else {
+      const section = href.replace("#", "")
+      if (section === "main") {
+        // Navigate back to main AI platform
+        onNavigate?.("")
+      } else {
+        onNavigate?.(section)
+      }
+    }
+  }
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-gray-800 bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/60">
@@ -114,12 +147,9 @@ export function UnifiedNavbar({ currentApp, onNavigate }: UnifiedNavbarProps) {
                       <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                         {section.items.map((item) => (
                           <NavigationMenuLink key={item.title} asChild>
-                            <a
-                              href={item.href}
-                              target={item.external ? "_blank" : "_self"}
-                              rel={item.external ? "noopener noreferrer" : ""}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900"
-                              onClick={!item.external ? () => onNavigate?.(item.href.replace("#", "")) : undefined}
+                            <button
+                              onClick={() => handleNavigation(item.href, item.external)}
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 text-left w-full"
                             >
                               <div className="flex items-center space-x-2 rtl:space-x-reverse">
                                 {item.icon}
@@ -127,7 +157,7 @@ export function UnifiedNavbar({ currentApp, onNavigate }: UnifiedNavbarProps) {
                                 {item.external && <ExternalLink className="w-3 h-3" />}
                               </div>
                               <p className="line-clamp-2 text-sm leading-snug text-gray-600">{item.description}</p>
-                            </a>
+                            </button>
                           </NavigationMenuLink>
                         ))}
                       </div>
@@ -175,11 +205,7 @@ export function UnifiedNavbar({ currentApp, onNavigate }: UnifiedNavbarProps) {
                     <DropdownMenuItem
                       key={item.title}
                       onClick={() => {
-                        if (item.external) {
-                          window.open(item.href, "_blank")
-                        } else {
-                          onNavigate?.(item.href.replace("#", ""))
-                        }
+                        handleNavigation(item.href, item.external)
                         setIsMobileMenuOpen(false)
                       }}
                     >
@@ -216,10 +242,10 @@ export function UnifiedNavbar({ currentApp, onNavigate }: UnifiedNavbarProps) {
                 variant="ghost"
                 size="sm"
                 className="text-xs text-gray-400 hover:text-white"
-                onClick={() => onNavigate?.("dashboard")}
+                onClick={() => onNavigate?.("")}
               >
-                <Home className="w-3 h-3 mr-1" />
-                العودة للرئيسية
+                <ArrowLeft className="w-3 h-3 mr-1" />
+                العودة للمنصة الأصلية
               </Button>
             </div>
           </div>

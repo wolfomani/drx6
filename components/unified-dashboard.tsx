@@ -1,13 +1,12 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Brain, Globe, User, Zap, ExternalLink, Github, Monitor, Server, Network } from "lucide-react"
+import { Brain, Globe, User, Zap, ExternalLink, Github, Monitor, Server, Network, ArrowLeft } from "lucide-react"
 
 interface Application {
   id: string
@@ -152,7 +151,11 @@ const categoryIcons = {
   personal: <User className="w-4 h-4" />,
 }
 
-export function UnifiedDashboard() {
+interface UnifiedDashboardProps {
+  onBackToMain?: () => void
+}
+
+export function UnifiedDashboard({ onBackToMain }: UnifiedDashboardProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [selectedApp, setSelectedApp] = useState<Application | null>(null)
 
@@ -180,9 +183,21 @@ export function UnifiedDashboard() {
               مركز التطبيقات الموحد
             </h1>
           </div>
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-3xl mx-auto mb-4">
             منصة شاملة تجمع جميع تطبيقاتي ومشاريعي في مكان واحد مع إمكانية الوصول السريع والإدارة المتقدمة
           </p>
+
+          {/* Back to Main Button */}
+          {onBackToMain && (
+            <Button
+              onClick={onBackToMain}
+              variant="outline"
+              className="border-gray-600 hover:bg-gray-800 bg-transparent text-gray-300 hover:text-white"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              العودة لمنصة الذكاء الاصطناعي
+            </Button>
+          )}
         </div>
 
         {/* Category Filter */}
