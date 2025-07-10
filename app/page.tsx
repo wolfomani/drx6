@@ -15,19 +15,7 @@ import { AppLauncher } from "@/components/app-launcher"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import {
-  Brain,
-  MessageSquare,
-  Zap,
-  Key,
-  TestTube,
-  Database,
-  TrendingUp,
-  Settings,
-  BarChart3,
-  Activity,
-  Network,
-} from "lucide-react"
+import { Brain, MessageSquare, Zap, Key, TestTube, Database, TrendingUp, Settings, BarChart3, Activity, Network, User, ExternalLink } from 'lucide-react'
 
 export default function Home() {
   const [showUnifiedDashboard, setShowUnifiedDashboard] = useState(false)
@@ -69,14 +57,34 @@ export default function Home() {
             منصة شاملة للتفاعل مع نماذج الذكاء الاصطناعي المتعددة مع أدوات متقدمة للمناقشة والتحليل
           </p>
 
-          {/* Apps Center Access Button */}
-          <Button
-            onClick={() => setShowUnifiedDashboard(true)}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            <Network className="w-5 h-5 mr-2" />
-            مركز التطبيقات الموحد
-          </Button>
+          {/* Navigation Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button
+              onClick={() => setShowUnifiedDashboard(true)}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Network className="w-5 h-5 mr-2" />
+              مركز التطبيقات الموحد
+            </Button>
+
+            <Button
+              variant="outline"
+              className="border-gray-600 text-gray-300 hover:bg-gray-700 gap-2 bg-transparent"
+              onClick={() => window.open("/cv", "_blank")}
+            >
+              <User className="w-4 h-4" />
+              السيرة الذاتية
+            </Button>
+
+            <Button
+              variant="outline"
+              className="border-gray-600 text-gray-300 hover:bg-gray-700 gap-2 bg-transparent"
+              onClick={() => window.open("https://github.com/wolfomani/drx6", "_blank")}
+            >
+              <ExternalLink className="w-4 h-4" />
+              GitHub
+            </Button>
+          </div>
         </div>
 
         {/* Main Tabs */}
